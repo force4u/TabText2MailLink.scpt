@@ -1,0 +1,15 @@
+安倍昭恵	営業部	name01@foo.hoge.com
+安倍麻美	営業部	name02@foo.hoge.com
+あべこうじ	営業部	name03@foo.hoge.com
+阿部幸太郎	営業部	name04@foo.hoge.com
+阿部サダヲ	営業部	name05@foo.hoge.com
+あべ静江	総務部	name06@foo.hoge.com
+安部譲二	総務部	name07@foo.hoge.com
+安倍晋三	総務部	name08@foo.hoge.com
+阿部慎之助	総務部	name09@foo.hoge.com
+阿部知代	総務部	name10@foo.hoge.com
+阿部力	技術部	name11@foo.hoge.com
+安倍なつみ	技術部	name12@foo.hoge.com
+阿部寛	技術部	name13@foo.hoge.com
+阿部美穂子	技術部	name14@foo.hoge.com
+阿部祐二	技術部	name15@foo.hoge.com
