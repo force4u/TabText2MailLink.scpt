@@ -1,13 +1,17 @@
 (*
 TabText2MailLink
 タブ区切りテキストからHTMLを生成します。
+メールアドレスリンク部を【所属】名前<メールアドレス>の形式で記載し
+ユーザーがリンクしたときに、メールアドレス部に氏名が入るようにしています。
+WindowsLiveMailのS-JISエンコードにも対応しています。
+
 2016026　初回作成
 
 *)
 
 
 
------------------------------------- ダブルクリックの始まり
+------------------------------------ 始まり
 on run
 	---プロンプトの文言改行が使えます\nを入れます
 	set theWithPrompt to "タブテキストをメールリンクに変換"
@@ -59,7 +63,7 @@ on open objOpenDrop
 	set theHtmlData to theHtmlData & "<style type=\"text/css\" media=\"screen\">div.bordertable{width: 80%;} .bordertable table , .bordertable th , .bordertable td {font-size: 12px;border: solid 1px #666666;padding: 3px;border-collapse: collapse;overflow: inherit;word-wrap: break-word;} .bordertable th.mailname{font-size: small;text-align: left;} .bordertable a.emailadd{font-family: monospace;font-style: normal;　word-break: keep-all;} .bordertable p{font-size: small;text-align: center;}</style>" as text
 	---CSSの反映用のDIVの開始
 	set theHtmlData to theHtmlData & "<div class=\"bordertable\">" as text
-	set theHtmlData to theHtmlData & "<p> LiveMailを利用している人はLiveMailをクリック</p>\r" as text
+	set theHtmlData to theHtmlData & "<p>LiveMailを利用している人はLiveMailをクリック</p>\r" as text
 	set theHtmlData to theHtmlData & "<table>" as text
 	set theHtmlData to theHtmlData & "<caption>メールアドレス一覧｜個人情報につき取り扱いには注意しましょう</caption>" as text
 	---テーブルの見出
@@ -108,9 +112,9 @@ on open objOpenDrop
 		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameMac & "?body=" & theLinkBodyNameMac & "\" tabindex=\"" & (numTabIndex) as text) & "\" title=\"" & theLineData1 & "さん\">" & theLineData1 & "</a></th>" as text
 		set theHtmlData to theHtmlData & "<td title=\"所属\">" & theLineData2 & "</td>" as text
 		set theHtmlData to theHtmlData & "<td title=\"メールリンク\">&nbsp;" as text
-		set theHtmlData to (theHtmlData & " <a rel=\"nofollow\" href=\"mailto:" & theLinkNameMac & "\" title=\"" & theLineData1 & "さん+メールアドレス。一般的なメールソフトではこちらをクリック\" tabindex=\"" & (numTabIndex + 1) as text) & "\">MailLink</a>" as text
+		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameMac & "\" title=\"" & theLineData1 & "さん+メールアドレス。一般的なメールソフトではこちらをクリック\" tabindex=\"" & (numTabIndex + 1) as text) & "\">MailLink</a>" as text
 		set theHtmlData to theHtmlData & "&nbsp;|&nbsp;" as text
-		set theHtmlData to (theHtmlData & " <a rel=\"nofollow\" href=\"mailto:" & theLinkNameWin & "\" title=\"" & theLineData1 & "さん+メールアドレス。WindowsLiveメールを利用している方はこちらをクリック\" tabindex=\"" & (numTabIndex + 2) as text) & "\">LiveMail</a>" as text
+		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameWin & "\" title=\"" & theLineData1 & "さん+メールアドレス。WindowsLiveメールを利用している方はこちらをクリック\" tabindex=\"" & (numTabIndex + 2) as text) & "\">LiveMail</a>" as text
 		set theHtmlData to theHtmlData & "&nbsp;</td>" as text
 		set theHtmlData to theHtmlData & "<td title=\"メールアドレス\">" as text
 		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theOrgEmail & "\" title=\"メールアドレスだけのリンク\" tabindex=\"" & (numTabIndex + 3) as text) & "\" class=\"emailadd\">" & theOrgEmail & "</a></td>" as text
