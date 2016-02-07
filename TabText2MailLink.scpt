@@ -123,10 +123,8 @@ on open objOpenDrop
 		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theOrgEmail & "\" title=\"" & theOrgEmail & "\" tabindex=\"" & (numTabIndex + 3) as text) & "\" class=\"emailadd\" target=\"_blank\">" & theOrgEmail & "</a></td>" as text
 		set theHtmlData to theHtmlData & "<td title=\"コピペ用のテキストエリア\">" as text
 		set theHtmlData to (theHtmlData & "<input type=\"Text\" name=\"emailtext\" value=\"" & theInputText & "\" tabindex=\"" & (numTabIndex + 4) as text) & "\" onclick=\"this.select(0,this.value.length)\">" as text
-		
 		set theHtmlData to theHtmlData & "</td>" as text
-		set theHtmlData to theHtmlData & "</tr>\r" as text
-		set theHtmlData to theHtmlData & "\r" as text
+		set theHtmlData to theHtmlData & "\r</tr>\r" as text
 		---カウントアップ
 		set numLine to numLine + 1 as number
 		set numTabIndex to numTabIndex + 5 as number
