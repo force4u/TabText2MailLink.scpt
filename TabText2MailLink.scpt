@@ -110,7 +110,7 @@ on open objOpenDrop
 		set theLinkBodyNameMac to my doUrlEncode(theLinkBodyName) as text
 		
 		---HTMLにする
-		set theHtmlData to theHtmlData & "<tr>" as text
+		set theHtmlData to theHtmlData & "<tr>\r" as text
 		set theHtmlData to theHtmlData & "<th title=\"" & theLineData1 & "さんのメールアドレスリンク\" class=\"mailname\">" as text
 		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameMac & "?body=" & theLinkBodyNameMac & "\" tabindex=\"" & (numTabIndex) as text) & "\" title=\"" & theLineData1 & "さんの名前をメール本文に入れます\" target=\"_blank\">" & theLineData1 & "</a></th>" as text
 		set theHtmlData to theHtmlData & "<td title=\"所属\">" & theLineData2 & "</td>" as text
@@ -122,10 +122,10 @@ on open objOpenDrop
 		set theHtmlData to theHtmlData & "<td title=\"メールアドレスだけのリンク\">" as text
 		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theOrgEmail & "\" title=\"" & theOrgEmail & "\" tabindex=\"" & (numTabIndex + 3) as text) & "\" class=\"emailadd\" target=\"_blank\">" & theOrgEmail & "</a></td>" as text
 		set theHtmlData to theHtmlData & "<td title=\"コピペ用のテキストエリア\">" as text
-		set theHtmlData to (theHtmlData & " <input type=\"Text\" name=\"emailtext\" value=\"" & theInputText & "\" tabindex=\"" & (numTabIndex + 4) as text) & "\" onclick=\"this.select(0,this.value.length)\">" as text
+		set theHtmlData to (theHtmlData & "<input type=\"Text\" name=\"emailtext\" value=\"" & theInputText & "\" tabindex=\"" & (numTabIndex + 4) as text) & "\" onclick=\"this.select(0,this.value.length)\">" as text
 		
 		set theHtmlData to theHtmlData & "</td>" as text
-		set theHtmlData to theHtmlData & "</tr>" as text
+		set theHtmlData to theHtmlData & "</tr>\r" as text
 		set theHtmlData to theHtmlData & "\r" as text
 		---カウントアップ
 		set numLine to numLine + 1 as number
