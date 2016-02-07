@@ -5,7 +5,8 @@ TabText2MailLink
 ユーザーがリンクしたときに、メールアドレス部に氏名が入るようにしています。
 WindowsLiveMailのS-JISエンコードにも対応しています。
 
-2016026　初回作成
+20160206　初回作成
+20160207 一部修正　コピー用にテキストエリアを追加
 
 *)
 
@@ -60,14 +61,14 @@ on open objOpenDrop
 	---HTMLヘッダー
 	set theHtmlData to "<!-- ここからEmailアドレステーブル -->\r"
 	---CSSを設定
-	set theHtmlData to theHtmlData & "<style type=\"text/css\" media=\"screen\">div.bordertable{width: 80%;} .bordertable table , .bordertable th , .bordertable td {font-size: 12px;border: solid 1px #666666;padding: 3px;border-collapse: collapse;overflow: inherit;word-wrap: break-word;} .bordertable th.mailname{font-size: small;text-align: left;} .bordertable a.emailadd{font-family: monospace;font-style: normal;　word-break: keep-all;} .bordertable p{font-size: small;text-align: center;}</style>" as text
+	set theHtmlData to theHtmlData & "<style type=\"text/css\" media=\"screen\">div.bordertable{width: 80%;} .bordertable table , .bordertable th , .bordertable td {font-size: 12px;border: solid 1px #666666;padding: 3px;border-collapse: collapse;overflow: inherit;word-wrap: break-word;} .bordertable th.mailname{font-size: small;text-align: left;} .bordertable a.emailadd{font-family: monospace;font-style: normal;word-break: keep-all;} .bordertable p{font-size: small;text-align: center;} .bordertable input{width: 88px;border-width: 0px;border-style: none;height: auto;width: 60px;padding: 0px;margin: 0px;font-size: small;text-align: right;}</style>" as text
 	---CSSの反映用のDIVの開始
-	set theHtmlData to theHtmlData & "<div class=\"bordertable\">" as text
-	set theHtmlData to theHtmlData & "<p>LiveMailを利用している人はLiveMailをクリック</p>\r" as text
+	set theHtmlData to theHtmlData & "<div class=\"bordertable\">\r<form>" as text
+	set theHtmlData to theHtmlData & "<p>LiveMailを利用している人はWをクリック</p>\r" as text
 	set theHtmlData to theHtmlData & "<table>" as text
 	set theHtmlData to theHtmlData & "<caption>メールアドレス一覧｜個人情報につき取り扱いには注意しましょう</caption>" as text
 	---テーブルの見出
-	set theHtmlData to theHtmlData & "<thead title=\"見出し\"><tr><th>氏名</th><th>所属</th><th colspan=\"2\">メール</th></tr></thead>" as text
+	set theHtmlData to theHtmlData & "<thead title=\"見出し\"><tr><th>氏名</th><th>所属</th><th colspan=\"3\">メール</th></tr></thead>" as text
 	---tbody
 	set theHtmlData to theHtmlData & "<tbody title=\"メールアドレス一覧\">" as text
 	---繰り返しのはじまり
@@ -88,6 +89,8 @@ on open objOpenDrop
 		set theOrgEmail to theLineData3 as text
 		---リンク用の名前を設定（所属+名前+さん）
 		set theLinkName to ("【" & theLineData2 & "】" & theLineData1 & "さん") as text
+		---inputエリア用のテキストを定義
+		set theInputText to ("【" & theLineData2 & "】" & theLineData1 & "さん&lt;" & theOrgEmail & "&gt;") as text
 		
 		---///Macと最近のWindows用にURLエンコード
 		set theLinkNameMac to my doUrlEncode(theLinkName) as text
@@ -109,20 +112,24 @@ on open objOpenDrop
 		---HTMLにする
 		set theHtmlData to theHtmlData & "<tr>" as text
 		set theHtmlData to theHtmlData & "<th title=\"" & theLineData1 & "さんのメールアドレスリンク\" class=\"mailname\">" as text
-		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameMac & "?body=" & theLinkBodyNameMac & "\" tabindex=\"" & (numTabIndex) as text) & "\" title=\"" & theLineData1 & "さん\">" & theLineData1 & "</a></th>" as text
+		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameMac & "?body=" & theLinkBodyNameMac & "\" tabindex=\"" & (numTabIndex) as text) & "\" title=\"" & theLineData1 & "さんの名前をメール本文に入れます\" target=\"_blank\">" & theLineData1 & "</a></th>" as text
 		set theHtmlData to theHtmlData & "<td title=\"所属\">" & theLineData2 & "</td>" as text
-		set theHtmlData to theHtmlData & "<td title=\"メールリンク\">&nbsp;" as text
-		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameMac & "\" title=\"" & theLineData1 & "さん+メールアドレス。一般的なメールソフトではこちらをクリック\" tabindex=\"" & (numTabIndex + 1) as text) & "\">MailLink</a>" as text
+		set theHtmlData to theHtmlData & "<td title=\"所属+名前形式のメールリンク\">&nbsp;" as text
+		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameMac & "\" title=\"所属+" & theLineData1 & "さん+メールアドレス。\" tabindex=\"" & (numTabIndex + 1) as text) & "\" target=\"_blank\">M</a>" as text
 		set theHtmlData to theHtmlData & "&nbsp;|&nbsp;" as text
-		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameWin & "\" title=\"" & theLineData1 & "さん+メールアドレス。WindowsLiveメールを利用している方はこちらをクリック\" tabindex=\"" & (numTabIndex + 2) as text) & "\">LiveMail</a>" as text
+		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theLinkNameWin & "\" title=\"所属+" & theLineData1 & "さん+メールアドレス。WindowsLiveメールを利用している方はこちらをクリック\" tabindex=\"" & (numTabIndex + 2) as text) & "\" target=\"_blank\">W</a>" as text
 		set theHtmlData to theHtmlData & "&nbsp;</td>" as text
-		set theHtmlData to theHtmlData & "<td title=\"メールアドレス\">" as text
-		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theOrgEmail & "\" title=\"メールアドレスだけのリンク\" tabindex=\"" & (numTabIndex + 3) as text) & "\" class=\"emailadd\">" & theOrgEmail & "</a></td>" as text
+		set theHtmlData to theHtmlData & "<td title=\"メールアドレスだけのリンク\">" as text
+		set theHtmlData to (theHtmlData & "<a rel=\"nofollow\" href=\"mailto:" & theOrgEmail & "\" title=\"" & theOrgEmail & "\" tabindex=\"" & (numTabIndex + 3) as text) & "\" class=\"emailadd\" target=\"_blank\">" & theOrgEmail & "</a></td>" as text
+		set theHtmlData to theHtmlData & "<td title=\"コピペ用のテキストエリア\">" as text
+		set theHtmlData to (theHtmlData & " <input type=\"Text\" name=\"emailtext\" value=\"" & theInputText & "\" tabindex=\"" & (numTabIndex + 4) as text) & "\" onclick=\"this.select(0,this.value.length)\">" as text
+		
+		set theHtmlData to theHtmlData & "</td>" as text
 		set theHtmlData to theHtmlData & "</tr>" as text
 		set theHtmlData to theHtmlData & "\r" as text
 		---カウントアップ
 		set numLine to numLine + 1 as number
-		set numTabIndex to numTabIndex + 4 as number
+		set numTabIndex to numTabIndex + 5 as number
 		---データ初期化
 		set theLineData1 to "" as text
 		set theLineData2 to "" as text
@@ -132,7 +139,7 @@ on open objOpenDrop
 	---HTMLのフッター処理
 	
 	set theHtmlData to theHtmlData & "</tbody>\r"
-	set theHtmlData to theHtmlData & "</table>\r</div>\r"
+	set theHtmlData to theHtmlData & "</table>\r</form>\r</div>\r"
 	set theHtmlData to theHtmlData & "<!-- ここまでEmailアドレステーブル -->\r"
 	---結果をテキストエディタに表示する
 	tell application "TextEdit" to launch
